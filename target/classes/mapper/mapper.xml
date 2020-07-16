@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.BoardMapper">
+<select id="getList" resultType="com.star.starDTO.BoardDTO">
+select * from star_board
+</select>
+
+<insert id="insert"> 
+<selectKey keyProperty="bno" order="AFTER" resultType="int">
+select max(bno) from star_board
+</selectKey>
+insert into star_board(title, content, writer)
+values(#{title},#{content},#{writer})
+</insert>
+
+<select id="read" resultType="com.star.starDTO.BoardDTO">
+select * from star_board where bno = #{bno}
+</select>
+
+<delete id="delete">
+delete from star_board where bno = #{bno}
+</delete>
+
+<update id="update">
+update star_board
+set title = #{title}
+, content = #{content}
+, writer = #{writer}
+, updatedate = now()
+where bno = #{bno}
+</update>
+
+</mapper>
